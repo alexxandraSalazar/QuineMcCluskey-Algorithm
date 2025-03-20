@@ -1,13 +1,17 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/ui/card"
-import { Button } from "@/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/ui/select"
-import { Textarea } from "@/ui/textarea"
-import { Label } from "@/ui/label"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/ui/dialog"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
+
+import { Button } from "./ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { Textarea } from "./ui/textarea"
+import { Label } from "./ui/label"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
 import { InfoIcon } from "lucide-react"
+
+
+
 
 export default function BooleanSimplifier() {
   const [variables, setVariables] = useState("4")
@@ -15,19 +19,18 @@ export default function BooleanSimplifier() {
   const [result, setResult] = useState("")
 
   const handleSimplify = () => {
-    // Here you would implement or call your Quine-McCluskey algorithm
-    // This is just a placeholder for demonstration
+    // Here implementation or call Quine-McCluskey algorithm
+  
     setResult(`Simplified expression for minterms [${minterms}] with ${variables} variables`)
   }
 
   return (
     <div className="relative min-h-screen w-full">
-      {/* Info button positioned at the top right of the screen */}
       <div className="absolute top-4 right-4 z-10">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline" size="icon">
-              <InfoIcon className="h-4 w-4" />
+            <Button variant="outline" size="icon" className="bg-white border-gray-200 hover:bg-gray-100">
+              <InfoIcon className="h-4 w-4 text-gray-800" />
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
@@ -58,14 +61,16 @@ export default function BooleanSimplifier() {
 
       {/* Main card component */}
       <div className="flex justify-center items-center pt-16 px-4">
-        <Card className="w-full max-w-3xl">
-          <CardHeader>
-            <CardTitle className="text-2xl">Boolean Expression Simplifier</CardTitle>
+        <Card className="w-full max-w-3xl shadow-lg">
+          <CardHeader className="bg-gradient-to-r rounded-t-lg">
+            <CardTitle className="text-2xl text-gray-800">Boolean Expression Simplifier</CardTitle>
             <CardDescription>Simplify Boolean expressions using the Quine-McCluskey algorithm</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-4 pt-6">
             <div className="space-y-2">
-              <Label htmlFor="variables">Number of Variables</Label>
+              <Label htmlFor="variables" className="font-medium">
+                Number of Variables
+              </Label>
               <Select value={variables} onValueChange={setVariables}>
                 <SelectTrigger id="variables" className="w-full">
                   <SelectValue placeholder="Select number of variables" />
@@ -81,7 +86,9 @@ export default function BooleanSimplifier() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="minterms">Minterms (comma separated)</Label>
+              <Label htmlFor="minterms" className="font-medium">
+                Minterms (comma separated)
+              </Label>
               <Textarea
                 id="minterms"
                 placeholder="Enter minterms (e.g., 0,1,4,5,6,7,8,9,15)"
@@ -91,8 +98,8 @@ export default function BooleanSimplifier() {
               />
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col items-start gap-4">
-            <Button onClick={handleSimplify} className="w-full">
+          <CardFooter className="flex flex-col items-start gap-4 pb-6">
+            <Button onClick={handleSimplify} className="w-full bg-primary hover:bg-primary/90">
               Simplify Expression
             </Button>
 

@@ -4,7 +4,6 @@ function App() {
 
   return (
     <>
-    <h1 className='bg-amber-950'> hola</h1>
     <BooleanSimplifier /> 
     </>
   )
