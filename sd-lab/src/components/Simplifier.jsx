@@ -42,7 +42,6 @@ export default function BooleanSimplifier() {
       `Simplified expression for minterms [${minterms}] with ${variables} variables`
     );
     setTableMccausky(true);
-
   };
 
   return (
@@ -136,12 +135,10 @@ export default function BooleanSimplifier() {
             >
               Simplify Expression
             </Button>
-
             {result && (
               <div className="w-full p-4 border rounded-md bg-muted">
                 <h3 className="font-medium mb-2">Simplified Result:</h3>
                 <p className="font-mono">{result}</p>
-
                 {tableMccausky && (
                   <TableGeneration minterms={minterms} variables={variables} />
                 )}
