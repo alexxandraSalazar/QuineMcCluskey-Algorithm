@@ -28,7 +28,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { InfoIcon } from "lucide-react";
-import { TableGeneration } from "./mcclausky/tableGeneration";
+import { TableGeneration } from "./TableGeneration";
 
 export default function BooleanSimplifier() {
   const [variables, setVariables] = useState("4");
