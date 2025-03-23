@@ -1,7 +1,12 @@
 import { TableBase } from "./TableBase";
 import { quineMcCluskey } from "./utils/quineMcclasky";
 import { PrimeImplicantTable } from "./PrimeImplicantTable";
-import { mintermsToBinary, sortMintermsByOnes } from "./utils/tools";
+import {
+  binaryToBooleanExpression,
+  getEssentialPrimeImplicants,
+  mintermsToBinary,
+  sortMintermsByOnes,
+} from "./utils/tools";
 
 export const TableGeneration = ({ minterms, variables }) => {
   const { minBinarys, mintermsArrS } = mintermsToBinary(minterms, variables);
@@ -23,6 +28,17 @@ export const TableGeneration = ({ minterms, variables }) => {
     implicant.minterms.some((m) => originalMinterms.includes(Number(m)))
   );
 
+  const essentialPrimeImplicants = getEssentialPrimeImplicants(
+    primeImplicants,
+    originalMinterms
+  );
+
+  const expressionTerms = essentialPrimeImplicants.map((imp) =>
+    binaryToBooleanExpression(imp.binary, variablesHead)
+  );
+
+  const finalExpression = expressionTerms.join(" + ");
+
   return (
     <div className="overflow-x-auto">
       <TableBase
@@ -37,6 +53,11 @@ export const TableGeneration = ({ minterms, variables }) => {
         primeImplicants={relevantPrimeImplicants}
         minterms={originalMinterms}
       />
+
+      <div className="mt-6 p-4 border rounded-md bg-gray-50">
+        <h3 className="font-semibold mb-2">Expresión mínima:</h3>
+        <p className="font-mono text-lg">{finalExpression}</p>
+      </div>
     </div>
   );
 };

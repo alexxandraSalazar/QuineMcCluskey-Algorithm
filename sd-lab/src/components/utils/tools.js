@@ -32,3 +32,40 @@ export const mintermsToBinary = (minterms, variables) => {
     mintermsArrS,
   };
 };
+
+export const getEssentialPrimeImplicants = (primeImplicants, minterms) => {
+  const coverMap = {};
+
+  // Paso 1: construir mapa minterm → [implicantes que lo cubren]
+  for (const m of minterms) {
+    coverMap[m] = [];
+    for (const implicant of primeImplicants) {
+      
+      const coveredMinterms = implicant.minterms.map(Number);
+      if (coveredMinterms.includes(Number(m))) {
+        coverMap[m].push(implicant);
+      }
+    }
+  }
+
+  // Paso 2: identificar implicantes que cubren minterms unicos (esenciales)
+  const essentials = new Set();
+  for (const m of minterms) {
+    const implicantsThatCover = coverMap[m];
+    if (implicantsThatCover.length === 1) {
+      essentials.add(implicantsThatCover[0]); // el unico que cubre este minterm
+    }
+  }
+
+  return Array.from(essentials);
+};
+
+export const binaryToBooleanExpression = (binary, variables) => {
+  return binary
+    .split("")
+    .map((bit, index) => {
+      if (bit === "-") return "";
+      return bit === "1" ? variables[index] : `${variables[index]}'`;
+    })
+    .join("");
+};
